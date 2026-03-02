@@ -1,4 +1,4 @@
-const http = require('http');
+3const http = require('http');
 const os = require('os');
 
 let entries = [];
@@ -37,7 +37,7 @@ const server = http.createServer((req, res) => {
 
   res.writeHead(200);
   res.end(JSON.stringify({
-    message: 'DevOps Bootcamp API v2',
+    message: 'DevOps Bootcamp API V3',
     endpoints: ['GET /entries', 'POST /entries', 'GET /health'],
     container: os.hostname()
   }));
