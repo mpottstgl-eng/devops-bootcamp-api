@@ -1,0 +1,30 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t devops-bootcamp-api .
+
+      - name: Run container
+        run: docker run -d -p 3000:3000 --name test-api devops-bootcamp-api
+
+      - name: Wait for startup
+        run: sleep 3
+
+      - name: Test health endpoint
+        run: curl --fail http://localhost:3000/health
+
+      - name: Test main endpoint
+        run: curl --fail http://localhost:3000
+
+      - name: Cleanup
+        run: docker stop test-api
